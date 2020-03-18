@@ -158,9 +158,6 @@ mobs:register_mob("viron:viron_mob", {
     punch_end = 200,
     punch_speed = 27,
 	},
-  replace_what = {"default:stone_with_diamond"},
-  replace_with = {"viron:viron_spawner"},
-  replace_rate = 30,
 
 })
 
