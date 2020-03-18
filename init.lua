@@ -1,3 +1,39 @@
+local viron_spawn_height_max = 31000
+setting = tonumber(minetest.settings:get("viron_spawn_height_max"))
+if setting then
+	viron_spawn_height_max = setting
+end
+
+local viron_spawn_height_min = -31000
+setting = tonumber(minetest.settings:get("viron_spawn_height_min"))
+if setting then
+	viron_spawn_height_min = setting
+end
+local mob_drops
+mob_drops = {
+  {name = "default:mese_shard", chance = 3, min = 1, max = 2},
+  {name = "default:steel", chance = 4, min = 1, max = 2},
+  {name = "default:iron_lump", chance = 2, min = 1, max = 2},
+  {name = "default:meselamp", chance = 3, min = 1, max = 2},
+  {name = "default:mese_crystal", chance = 6, min = 1, max = 1},
+  {name = "viron:viron_spawner", chance = 75, min = 1, max = 1},
+  {name = "default:diamond", chance = 5, min = 1, max = 1},
+  {name = "default:diamond_block", chance = 20, min = 1, max = 1},
+}
+if minetest.get_modpath("obsidianmese") then
+  table.insert(mob_drops, {name = "obsidianmese:mese_apple", chance = 5, min = 0, max = 3})
+end
+if minetest.get_modpath("gadgets_magic") then
+  table.insert(mob_drops, {name = "gadgets_magic:staff_earth", chance = 20, min = 0, max = 1})
+end
+if minetest.get_modpath("vessels") then
+  table.insert(mob_drops, {name = "vessels:steel_bottle", chance = 6, min = 1, max = 1})
+
+end
+
+
+
+
 minetest.register_node("viron:viron_spawner", {
     description = "viron_spawner",
     tiles = {"viron_viron_spawner.png"},
@@ -7,18 +43,29 @@ minetest.register_node("viron:viron_spawner", {
     sunlight_propagates = true,
     is_ground_content = false,
     sounds = default.node_sound_glass_defaults(),
-    groups = {cracky=3, stone=1}
+    groups = {cracky=3, stone=1},
+    drop = {
+        max_items = 1,  -- Maximum number of items to drop.
+        items = { -- Choose max_items randomly from this list.
+            {
+                items = {"viron:viron_spawner"},  -- Items to drop.
+                rarity = 10,  -- Probability of dropping is 1 / rarity.
+            },
+        },
+    },
 })
 
 mobs:register_mob("viron:viron_mob", {
 	type = "monster",
-	hp_min = 45,
+	hp_min = 35,
 	hp_max = 50,
 	armor = 75,
 	passive = false,
 	walk_velocity = 4,
 	stand_chance = 60,
 	walk_chance = 10,
+  jump = true,
+  jump_height = 3,
 	run_velocity = 6,
 	stepheight = 1.6,
   stay_near = {
@@ -55,7 +102,7 @@ mobs:register_mob("viron:viron_mob", {
 	pathfinding = 1,
   immune_to = {
 
-    {"defualt:diamond", -50},
+    {"default:diamond", -50},
   },
 	makes_footstep_sound = false,
   sounds = {
@@ -68,27 +115,8 @@ mobs:register_mob("viron:viron_mob", {
     jump = "viron_viron_talk",
 
   },
-drops = function(pos)
-    local mob_drops
-    mob_drops = {
-  		{name = "defualt:diamond_block", chance = 3, min = 1, max = 5},
-      {name = "defualt:diamond", chance = 5, min = 0, max = 5},
-      {name = "defualt:mese", chance = 6, min = 0, max = 4},
-      {name = "defualt:mese_crystal", chance = 2, min = 0, max = 10},
-      {name = "bucket:bucket_lava", chance = 9, min = 1, max = 2},
-      {name = "defualt:steel_block", chance = 7, min = 0, max = 10},
-      {name = "viron:viron_spawner", chance = 500, min = 1, max = 1},
-    }
-    if minetest.get_modpath("obsidianmese") then
-      table.insert(mob_drops, {name = "obsidianmese:sword_engraved:sword_engraved", chance = 20, min = 0, max = 1})
-      table.insert(mob_drops, {name = "obsidianmese:mese_apple", chance = 5, min = 0, max = 3})
-    end
-    if minetest.get_modpath("gadgets_magic") then
-      table.insert(mob_drops, {name = "gadgets_magic:staff_earth:staff_earth", chance = 20, min = 0, max = 1})
-    end
-    return mob_drops
-  end,
 
+  drops = mob_drops,
 
 
 	visual = "mesh",
@@ -123,9 +151,9 @@ drops = function(pos)
     punch_end = 200,
     punch_speed = 27,
 	},
-
-
-
+  replace_what = {"default:stone_with_diamond"},
+  replace_with = {"viron:viron_spawner"},
+  replace_rate = 30,
 
 })
 
@@ -134,11 +162,13 @@ drops = function(pos)
 
 mobs:spawn({
 	name = "viron:viron_mob",
-	neighbors = {"default:stone_with_diamond","defualt:stone_with_mese"},
+	neighbors = {"default:stone_with_diamond","default:stone_with_mese"},
 
-	chance = 2,
+	chance = 3,
   interval = 30,
 	active_object_count = 2,
+  min_height = viron_spawn_height_min,
+  max_height = viron_spawn_height_max,
 
 })
 
@@ -149,10 +179,11 @@ mobs:spawn({
 
 	chance = 1,
   interval = 30,
-	active_object_count = 8,
+	active_object_count = 5,
 
 })
 
 
 
 mobs:register_egg("viron:viron_mob", "Viron", "viron_viron_egg.png", 1)
+
