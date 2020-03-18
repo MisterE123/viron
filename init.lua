@@ -179,7 +179,7 @@ mobs:spawn({
 
 })
 
-
+if spawners == 1 then
 mobs:spawn({
 	name = "viron:viron_mob",
 	neighbors = {"viron:viron_spawner"},
@@ -189,7 +189,7 @@ mobs:spawn({
 	active_object_count = 5,
 
 })
-
+end
 
 
 mobs:register_egg("viron:viron_mob", "Viron", "viron_viron_egg.png", 1)
