@@ -92,7 +92,7 @@ drops = function(pos)
 
 
 	visual = "mesh",
-	collisionbox = {-0.5, -0.5, -0.5, 0.5, 1, 0.5},
+	collisionbox = {-0.3, -0.5, -0.3, 0.3, 1.5, 0.3},
 	mesh = "viron_viron_mob.b3d",
 	textures = {
 		{"viron_viron_texture.png"},
