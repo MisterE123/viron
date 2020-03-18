@@ -9,6 +9,12 @@ setting = tonumber(minetest.settings:get("viron_spawn_height_min"))
 if setting then
 	viron_spawn_height_min = setting
 end
+
+local spawners = 1
+setting = tonumber(minetest.settings:get("spawners"))
+if setting then
+	spawners = setting
+end
 local mob_drops
 mob_drops = {
   {name = "default:mese_shard", chance = 3, min = 1, max = 2},
@@ -16,7 +22,6 @@ mob_drops = {
   {name = "default:iron_lump", chance = 2, min = 1, max = 2},
   {name = "default:meselamp", chance = 3, min = 1, max = 2},
   {name = "default:mese_crystal", chance = 6, min = 1, max = 1},
-  {name = "viron:viron_spawner", chance = 75, min = 1, max = 1},
   {name = "default:diamond", chance = 5, min = 1, max = 1},
   {name = "default:diamond_block", chance = 20, min = 1, max = 1},
 }
@@ -28,12 +33,13 @@ if minetest.get_modpath("gadgets_magic") then
 end
 if minetest.get_modpath("vessels") then
   table.insert(mob_drops, {name = "vessels:steel_bottle", chance = 6, min = 1, max = 1})
-
+end
+if spawners == 1 then
+  table.insert(mob_drops, {name = "viron:viron_spawner", chance = 75, min = 1, max = 1})
 end
 
 
-
-
+if spawners == 1 then
 minetest.register_node("viron:viron_spawner", {
     description = "viron_spawner",
     tiles = {"viron_viron_spawner.png"},
@@ -54,6 +60,7 @@ minetest.register_node("viron:viron_spawner", {
         },
     },
 })
+end
 
 mobs:register_mob("viron:viron_mob", {
 	type = "monster",
