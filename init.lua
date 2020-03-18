@@ -60,12 +60,12 @@ mobs:register_mob("viron:viron_mob", {
 	makes_footstep_sound = false,
   sounds = {
     distance = 25,
-    random = "viron_viron_talk.ogg",
-    war_cry = "viron_viron_angry.ogg",
-    attack = "viron_viron_hit.ogg",
-    damage = "viron_viron_angry.ogg",
-    death = "viron_viron_die.ogg",
-    jump = "viron_viron_talk.ogg",
+    random = "viron_viron_talk",
+    war_cry = "viron_viron_angry",
+    attack = "viron_viron_hit",
+    damage = "viron_viron_angry",
+    death = "viron_viron_die",
+    jump = "viron_viron_talk",
 
   },
 drops = function(pos)
