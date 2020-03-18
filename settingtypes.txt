@@ -3,3 +3,6 @@ viron_spawn_height_max (Viron Spawn Height Max) int 31000 -31000 31000
 
 #maximum world height that viron can spawn (defualt = -31000)
 viron_spawn_height_min (Viron Spawn Height Min) int -31000 -31000 31000
+
+#Include viron spawner blocks (defualt = 1 (true))
+spawners (Include Viron Spawner blocks) int 1 0 1
