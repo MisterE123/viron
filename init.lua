@@ -87,7 +87,7 @@ mobs:register_mob("viron:viron_mob", {
 	damage = 15,
 	knock_back = true,
 	fear_height = 5,
-	water_damage = 20,
+	water_damage = 0,
 	lava_damage = 0,
 	light_damage = 0,
 	suffocation = false,
