@@ -1,10 +1,10 @@
-local viron_spawn_height_max = 31000
+local viron_spawn_height_max = 3500
 setting = tonumber(minetest.settings:get("viron_spawn_height_max"))
 if setting then
 	viron_spawn_height_max = setting
 end
 
-local viron_spawn_height_min = -31000
+local viron_spawn_height_min = 3000
 setting = tonumber(minetest.settings:get("viron_spawn_height_min"))
 if setting then
 	viron_spawn_height_min = setting
